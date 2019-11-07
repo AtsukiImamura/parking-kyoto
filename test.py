@@ -1,3 +1,7 @@
-import env
+from constants.maneuver import Maneuver
+from constants.maneuver import get_by_key
 
-print(env.one("API_KEY"))
+# for man in Maneuver:
+#     print(man.to_kebab_case())
+
+print(str(get_by_key("turn-right")))
