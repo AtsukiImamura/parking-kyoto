@@ -4,13 +4,15 @@
 # [{'name': 'SA-001', 'coordinates': ['135.7581336', '35.0148731', '0']}, {'name': 'SA-002', 'coordinates': ['135.7581335', '35.0143678', '0']}]
 
 from lxml import etree
+from map import step
+from map import place
 
 
 def get_doc(file_name):
     """
     XMlファイルを読み込む
     """
-    with open("./kyoto.kml", 'rt', encoding="utf-8") as myfile:
+    with open(file_name, 'rt', encoding="utf-8") as myfile:
         doc = myfile.read().encode("utf-8")
         return doc
 
@@ -23,7 +25,7 @@ def get_xml_root(file_name):
         doc = get_doc(file_name)
         return etree.fromstring(doc)
     except:
-        print("Failed to read file...")
+        print("====== Failed to read file...")
 
 
 def get_place_marks(root):
@@ -90,8 +92,8 @@ def place_info_list(file_name):
     for place_mark in place_marks:
         name = get_name(place_mark)
         coordinates = get_coordinates(place_mark)
-        res.append({
+        res.append(place.Place({
             "name": name,
             "coordinates": coordinates
-        })
+        }))
     return res

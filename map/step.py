@@ -10,10 +10,10 @@ class Step():
         self.step = step
 
     def get_distance_meter(self):
-        return self.step['distance']['value']
+        return float(self.step['distance']['value'])
 
     def get_duration_second(self):
-        return self.step['duration']['value']
+        return float(self.step['duration']['value'])
 
     def get_start_location(self):
         return self.step['start_location']
