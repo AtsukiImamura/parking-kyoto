@@ -106,3 +106,10 @@ venv.bak/
 *.txt
 *.text
 test/
+
+credentials.json
+token.pickle
+
+test.json
+resources/
+results/

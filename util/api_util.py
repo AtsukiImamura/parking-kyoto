@@ -22,6 +22,7 @@ def get(url, params):
     # URIパラメータの文字列の作成
     paramStr = urlencode(params)
     url = url + "?" + paramStr
+    print("url = "+url)
     readObj = urlopen(url)
     # webAPIからのJSONを取得
     response = readObj.read()

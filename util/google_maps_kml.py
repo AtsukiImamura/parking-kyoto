@@ -30,7 +30,7 @@ def get_xml_root(file_name):
 
 def get_place_marks(root):
     return root.xpath(
-        '//kml:Folder/kml:Placemark', namespaces={'kml': 'http://www.opengis.net/kml/2.2'})
+        '//kml:Placemark', namespaces={'kml': 'http://www.opengis.net/kml/2.2'})  #/kml:Folder
 
 
 def get_place_marks_by_file_name(file_name):
@@ -89,6 +89,7 @@ def place_info_list(file_name):
     """
     res = []
     place_marks = get_place_marks_by_file_name(file_name)
+    print("place_marks = "+str(len(place_marks)))
     for place_mark in place_marks:
         name = get_name(place_mark)
         coordinates = get_coordinates(place_mark)
