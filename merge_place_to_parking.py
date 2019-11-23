@@ -2,9 +2,13 @@ import json
 import env
 
 
-place_info_path = "./results/place_info/place-"+env.one("PLACE_INFO_ID") +".json"
-parking_info_path = "./results/parking/parking-"+ env.PARKING_INFO_ID() +".json"
-parking_info_out_path = "./results/parking/parking-"+ env.PARKING_INFO_ID() +"-r.json"
+place_info_path = "./results/place_info/place-" + \
+    env.one("SUMMARY_KEY") + ".json"
+parking_info_path = "./results/parking/parking-" + env.SUMMARY_KEY() + ".json"
+parking_info_out_path = "./results/parking/parking-" + env.SUMMARY_KEY() + \
+    "-r.json"
+
+NEED_ERROR_FOR_MISSING_PARKING = False
 
 
 def main():
@@ -16,7 +20,7 @@ def main():
     if parks_json == None:
         print("parks_json not found.")
         return
-    
+
     if places_json == None:
         print("places_json not found.")
         return
@@ -31,7 +35,8 @@ def main():
     summalized_parks = []
     for park in parks:
         if park["id"] not in place_per_id:
-            print("ID "+park["id"] +" の駐車場位置データがありません")
+            if NEED_ERROR_FOR_MISSING_PARKING:
+                print("ID "+park["id"] + " の駐車場位置データがありません")
             continue
         park["coordinates"] = place_per_id[park["id"]]["coordinates"]
         summalized_parks.append(park)

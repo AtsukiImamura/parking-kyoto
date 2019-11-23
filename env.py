@@ -14,5 +14,5 @@ def API_KEY():
     return one("API_KEY")
 
 
-def PARKING_INFO_ID():
-    return one("PARKING_INFO_ID")
+def SUMMARY_KEY():
+    return one("SUMMARY_KEY")

@@ -97,4 +97,5 @@ def place_info_list(file_name):
             "name": name,
             "coordinates": coordinates
         }))
+    print(str(len(res))+" places found in kml file.")
     return res

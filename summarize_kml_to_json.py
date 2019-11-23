@@ -5,11 +5,13 @@ from util import google_maps_kml
 import env
 
 
-kml_file_path = os.path.abspath("./resources/"+env.one("KML_FILE_NAME"))
+kml_file_path = os.path.abspath("./resources/"+env.one("SUMMARY_KEY")+".kml")
 # 保存先ディレクトリ
 json_dir_path = "./results/place_info"
 # jsonファイルのパス
-json_file_path = os.path.abspath(json_dir_path + '/place-' + env.one('PLACE_INFO_ID') +'.json')
+json_file_path = os.path.abspath(
+    json_dir_path + '/place-' + env.one('SUMMARY_KEY') + '.json')
+
 
 def main():
     """

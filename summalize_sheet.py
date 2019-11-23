@@ -1,15 +1,18 @@
+import re
 from sheet.sheet import GoogleSpreadSheet
 import json
 import env
+from constants.common import MAX_HOUR
 
-json_file_path = "./results/parking/parking-"+ env.PARKING_INFO_ID() +".json"
-SPREADSHEET_ID= "1Zzh2g9QMutBrGGzlVUNSut_LGzV18PqrFP7n7CQkftA"
+json_file_path = "./results/parking/parking-" + env.SUMMARY_KEY() + ".json"
+SPREADSHEET_ID = "1Zzh2g9QMutBrGGzlVUNSut_LGzV18PqrFP7n7CQkftA"
 RANGE_NAME = 'S13!A5:K1000'
 
 print("json_file_path = "+json_file_path)
-SHEET_NAMES = ["S6", "S7", "S8", "S9", "S13", "S14", "N21", "N22", "N23" , "N26"]
+# SHEET_NAMES = ["S6", "S7", "S8", "S9", "S12", "S13", "S14", "N6", "N7",
+#                "N8", "N9", "N15", "N16", "N21", "N22", "N23", "N26", "N27", "N28", "N29"]
 
-# SHEET_NAMES = ["N22"]
+SHEET_NAMES = ["S7"]
 COLUMN_KEYS = [
     "id",
     "num",
@@ -21,15 +24,27 @@ COLUMN_KEYS = [
     "entranses",
     "system",
     "coop",
-    "coop_target"
+    "coop_target",
+    "unit_price",
+    "unit_period",
+    "1h",
+    "2h",
+    "3h",
+    "4h",
+    "5h",
+    "6h",
+    "7h",
+    "8h",
 ]
+
 
 def main():
     sheet = GoogleSpreadSheet(SPREADSHEET_ID)
 
     target_objects = []
     for sheet_name in SHEET_NAMES:
-        rows = sheet.get(sheet_name + "!A5:K1000")
+        rows = sheet.get(sheet_name + "!A5:U1000")
+        print("sheet: "+sheet_name+"  rows: "+str(len(rows)))
         for rowIndex, row in enumerate(rows):
             target_obj = {}
             # if len(row) != len(COLUMN_KEYS):
@@ -52,17 +67,25 @@ def main():
                 # continue
             target_objects.append(target_obj)
 
+    for target_obj in target_objects:
+        price_info = {}
+        for hour in range(1, MAX_HOUR + 1):
+            hour_key = str(hour)+"h"
+            if hour_key not in target_obj:
+                continue
+            price_info[hour_key] = target_obj.pop(hour_key)
+        target_obj["hourly_prices"] = price_info
+
     with open(json_file_path, 'w', encoding='utf-8') as file:
         file.write(json.dumps(target_objects, ensure_ascii=False))
 
 
-import re
 def check_row(target):
     errors = []
     # キーの存在チェック
     for col_key in COLUMN_KEYS:
         if col_key not in target and col_key != "coop_target":
-            errors.append(col_key +": 要入力")
+            errors.append(col_key + ": 要入力")
     if len(errors) > 0:
         return errors
 
@@ -89,10 +112,16 @@ def check_row(target):
         errors.append("coop: 形式違反")
     if target["coop"] == 1 and ("coop_target" not in target or target["coop_target"] == ""):
         errors.append("target: 要記入")
+    if not re.match(r"[1-9][0-9]*", target["unit_price"]):
+        errors.append("unit_price: 形式違反")
+    if not re.match(r"[1-9][0-9]*", target["unit_period"]):
+        errors.append("unit_period: 形式違反")
+    for hour in range(1, MAX_HOUR + 1):
+        hour_key = str(hour) + "h"
+        if not re.match(r"[1-9][0-9]*", target[hour_key]):
+            errors.append(hour_key + ": 形式違反")
 
     return errors
-
-
 
 
 # main()
