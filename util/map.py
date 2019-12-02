@@ -22,12 +22,13 @@ def route(origin, destination):
 
     res = util.api_util.get(
         "https://maps.googleapis.com/maps/api/directions/json", {
-            'origin': ', '.join(origin), # float=>strで怒られるかも
-            'destination': ', '.join(destination),
+            'origin': ','.join([str(p) for p in origin]),  # float=>strで怒られるかも
+            'destination': ', '.join([str(p) for p in destination]),
             'key': env.API_KEY(),
             'language': 'ja'
         })
     routes = res['routes']
+    # print(routes)
     if routes == None:
         return
     route = map.route.Route(routes[0])
