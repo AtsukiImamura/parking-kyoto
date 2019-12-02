@@ -4,7 +4,7 @@ import json
 import env
 from constants.common import MAX_HOUR
 
-json_file_path = "./results/parking/parking-" + env.SUMMARY_KEY() + ".json"
+json_file_path = "./resources/parking/parking-" + env.SUMMARY_KEY() + ".json"
 SPREADSHEET_ID = "1Zzh2g9QMutBrGGzlVUNSut_LGzV18PqrFP7n7CQkftA"
 RANGE_NAME = 'S13!A5:K1000'
 

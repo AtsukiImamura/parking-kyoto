@@ -2,10 +2,10 @@ import json
 import env
 
 
-place_info_path = "./results/place_info/place-" + \
+place_info_path = "./resources/place_info/place-" + \
     env.one("SUMMARY_KEY") + ".json"
-parking_info_path = "./results/parking/parking-" + env.SUMMARY_KEY() + ".json"
-parking_info_out_path = "./results/parking/parking-" + env.SUMMARY_KEY() + \
+parking_info_path = "./resources/parking/parking-" + env.SUMMARY_KEY() + ".json"
+parking_info_out_path = "./resources/parking/parking-" + env.SUMMARY_KEY() + \
     "-r.json"
 
 NEED_ERROR_FOR_MISSING_PARKING = False

@@ -7,7 +7,7 @@ import env
 
 kml_file_path = os.path.abspath("./resources/"+env.one("SUMMARY_KEY")+".kml")
 # 保存先ディレクトリ
-json_dir_path = "./results/place_info"
+json_dir_path = "./resources/place_info"
 # jsonファイルのパス
 json_file_path = os.path.abspath(
     json_dir_path + '/place-' + env.one('SUMMARY_KEY') + '.json')

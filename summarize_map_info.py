@@ -3,7 +3,7 @@ import json
 import env
 
 
-json_file_path = "./results/parking/parking-" + env.SUMMARY_KEY() + "-r.json"
+json_file_path = "./resources/parking/parking-" + env.SUMMARY_KEY() + "-r.json"
 out_file_dir_path = "./resources/routes/"
 
 # レベル１交差点

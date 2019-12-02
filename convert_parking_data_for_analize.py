@@ -2,7 +2,7 @@ import json
 import env
 from constants.common import MAX_HOUR
 
-json_file_path = "./results/parking/parking-" + env.SUMMARY_KEY() + ".json"
+json_file_path = "./resources/parking/parking-" + env.SUMMARY_KEY() + ".json"
 out_file_path = json_file_path
 
 
