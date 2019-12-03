@@ -42,4 +42,4 @@ def main():
         summalized_parks.append(park)
 
     with open(parking_info_out_path, 'w', encoding='utf-8') as file:
-        file.write(json.dumps(summalized_parks, ensure_ascii=False))
+        file.write(json.dumps(summalized_parks, ensure_ascii=False, indent=2))

@@ -12,7 +12,7 @@ class Place():
         self.coordinates = coordinates
 
     def to_json(self):
-        return json.dumps(self.to_obj())
+        return json.dumps(self.to_obj(), indent=2)
 
     def to_obj(self):
         return {

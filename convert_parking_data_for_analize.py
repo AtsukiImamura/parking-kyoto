@@ -42,7 +42,7 @@ def main():
             print(errors)
 
     with open(out_file_path, 'w', encoding='utf-8') as file:
-        file.write(json.dumps(parks, ensure_ascii=False))
+        file.write(json.dumps(parks, ensure_ascii=False, indent=2))
 
 
 def logical_check(park):

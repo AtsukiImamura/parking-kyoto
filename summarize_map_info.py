@@ -70,6 +70,8 @@ def main():
                 park_route_info_list = []
                 for target_id in target_ids:
                     target_start_point = nearrest_intersection['start_points'][target_id]
+                    if len(target_start_point['coordinates']) < 2:
+                        continue
                     route_info = map.route(
                         target_start_point['coordinates'], coordinates)
                     json_route = {
@@ -84,16 +86,16 @@ def main():
                     park_route_info_list.append(json_route)
                 with open(out_file_dir_path+"route-"+park_id+".json", 'w', encoding='utf-8') as res_file:
                     res_file.write(json.dumps(
-                        park_route_info_list, ensure_ascii=False))
+                        park_route_info_list, ensure_ascii=False, indent=2))
                 loaded_parking_ids.append(park_id)
-                break
+                # break
         except:
             print("ERROR!!")
         finally:
             # 処理済み駐車場のIDを保存
             with open("./resources/routes/__loaded.json", 'w', encoding='utf-8') as loaded:
                 loaded.write(json.dumps(
-                    loaded_parking_ids, ensure_ascii=False))
+                    loaded_parking_ids, ensure_ascii=False, indent=2))
 
 
 main()

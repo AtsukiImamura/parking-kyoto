@@ -28,4 +28,4 @@ def main():
         os.mkdir(json_dir_path)
 
     with open(json_file_path, 'w') as file:
-        file.write(json.dumps(targets))
+        file.write(json.dumps(targets, indent=2))
